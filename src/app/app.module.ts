@@ -3,14 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StrengthCalculatorModule } from './strength-calculator/strength-calculator/strength-calculator.module';
+
+
 
 @NgModule({
   declarations: [
     AppComponent
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StrengthCalculatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

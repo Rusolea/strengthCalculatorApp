@@ -1,0 +1,14 @@
+<h2>Calculadora de Fuerza</h2>
+<select [(ngModel)]="selectedExercise" (change)="onExerciseChange(selectedExercise)">
+  <!-- Opciones de ejercicio aquí -->
+</select>
+<label for="weight">Peso:</label>
+<input type="number" [(ngModel)]="weight">
+<label for="repetitions">Repeticiones:</label>
+<input type="number" [(ngModel)]="repetitions">
+<button (click)="onCalculate()">Calcular 1RM</button>
+<div *ngIf="oneRM">
+  <h3>1RM: {{ oneRM }} kg</h3>
+  <!-- Mostrar la tabla de fuerza aquí -->
+</div>
+<button (click)="onSaveResults()">Guardar resultados</button>
