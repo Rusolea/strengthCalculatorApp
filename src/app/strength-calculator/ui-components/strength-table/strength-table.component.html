@@ -1,1 +1,16 @@
-<p>strength-table works!</p>
+<table *ngIf="strengthTable.length > 0">
+  <thead>
+    <tr>
+      <th>Porcentaje</th>
+      <th>Peso</th>
+      <th>Repeticiones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of strengthTable">
+      <td>{{ row.percentage }}%</td>
+      <td>{{ row.weight }} kg</td>
+      <td>{{ row.reps }}</td>
+    </tr>
+  </tbody>
+</table>

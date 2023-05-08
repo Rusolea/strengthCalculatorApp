@@ -1,14 +1,38 @@
 <h2>Calculadora de Fuerza</h2>
-<select [(ngModel)]="selectedExercise" (change)="onExerciseChange(selectedExercise)">
-  <!-- Opciones de ejercicio aquí -->
-</select>
-<label for="weight">Peso:</label>
-<input type="number" [(ngModel)]="weight">
-<label for="repetitions">Repeticiones:</label>
-<input type="number" [(ngModel)]="repetitions">
-<button (click)="onCalculate()">Calcular 1RM</button>
-<div *ngIf="oneRM">
-  <h3>1RM: {{ oneRM }} kg</h3>
-  <!-- Mostrar la tabla de fuerza aquí -->
+
+<!-- <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal> -->
+<app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
+
+
+<!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos o realizar nuevo cálculo -->
+<div *ngIf="selectedExercise && weightsStored">
+  <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
+  <button (click)="resetCalculator()">Realizar nuevo cálculo</button>
 </div>
-<button (click)="onSaveResults()">Guardar resultados</button>
+
+<!-- Si no hay pesos guardados o no se ha seleccionado un ejercicio, muestra el formulario de cálculo -->
+<div *ngIf="!weightsStored && showCalculationForm">
+  <h3>Cuanto peso utilizas</h3>
+  <label for="weight">Peso:</label>
+  <input type="number" [(ngModel)]="weight">
+  <h3>Cuantas repeticiones lograste</h3>
+  <label for="repetitions">Repeticiones:</label>
+  <input type="number" [(ngModel)]="repetitions">
+  <button *ngIf="selectedExercise && weight && repetitions" (click)="onCalculate()">Calcular 1RM</button>
+</div>
+
+<!-- Muestra el modal de resultados de cálculo -->
+<!-- app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()"></app-calculation-result-modal> -->
+<app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+
+
+<!-- <button *ngIf="oneRM" (click)="onSaveResults()">Guardar resultados</button> -->
+<button *ngIf="oneRM" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
+
+
+<!-- Muestra la tabla de fuerza -->
+<!-- <app-strength-table *ngIf="showResultModal" [strengthTable]="strengthTable"></app-strength-table> -->
+<!-- Muestra la tabla de fuerza -->
+<app-strength-table *ngIf="showWeightTable" [strengthTable]="strengthTable"></app-strength-table>
+
+

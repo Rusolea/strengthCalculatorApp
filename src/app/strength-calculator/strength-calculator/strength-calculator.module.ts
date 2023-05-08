@@ -8,6 +8,8 @@ import { StrengthTableComponent } from '../ui-components/strength-table/strength
 import { LocalStorageService } from '../services/local-storage.service';
 import { StrengthCalculatorService } from '../services/strength-calculator.service';
 import { FormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgChartsModule,
   ],
   providers: [
     LocalStorageService,
