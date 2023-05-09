@@ -140,7 +140,7 @@ export class StrengthCalculatorComponent implements OnInit {
     this.weightsStored = false;
     this.showResultModal = false;
     this.showCalculator = true;
-    this.showCalculationForm = true;
+    this.showCalculationForm = false;
     this.showWeightTable = false;
     this.weight = 0;
     this.repetitions = 0;
