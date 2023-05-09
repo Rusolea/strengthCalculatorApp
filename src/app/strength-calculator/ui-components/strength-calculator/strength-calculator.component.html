@@ -6,7 +6,9 @@
 
 <!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos o realizar nuevo cálculo -->
 <div *ngIf="selectedExercise && weightsStored">
-  <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
+  <!-- <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button> -->
+  <button *ngIf="showViewWeightsButton" (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
+
   <button (click)="resetCalculator()">Realizar nuevo cálculo</button>
 </div>
 

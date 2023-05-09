@@ -21,6 +21,7 @@ export class StrengthCalculatorComponent implements OnInit {
   showWeightTable = false;
 
   resultsSaved = false; //Para evitar que el botón "Guardar resultados" se presione varias veces y se guarden los datos repetidamente,
+  showViewWeightsButton = true; //controlar la visibilidad del botón "Ver tabla de pesos"
 
 
   constructor(
@@ -109,6 +110,7 @@ export class StrengthCalculatorComponent implements OnInit {
         this.strengthTable = this.strengthCalculatorService.generateStrengthTable(lastData.oneRM);
         this.showWeightTable = true;
         this.showCalculationForm = false;
+        this.showViewWeightsButton = false; // Añade esta línea
       } else {
         console.error("No hay datos disponibles en el almacenamiento local para el ejercicio seleccionado");
       }
@@ -127,6 +129,9 @@ export class StrengthCalculatorComponent implements OnInit {
     this.showCalculator = true;
     this.showCalculationForm = true;
     this.showWeightTable = false; // Añade esta línea para ocultar la tabla de pesos
+    this.resultsSaved = false; // Agrega esta línea
+    this.oneRM = 0; // Agrega esta línea para ocultar la sección "Resultado del cálculo"
+    this.showViewWeightsButton = true; //el botón "Ver tabla de pesos" vuelva a ser visible
   }
 
   onTerminate() {
@@ -140,7 +145,11 @@ export class StrengthCalculatorComponent implements OnInit {
     this.weight = 0;
     this.repetitions = 0;
     this.oneRM = 0;
+    this.resultsSaved = false; // Agrega esta línea
+    this.showViewWeightsButton = true;//el botón "Ver tabla de pesos" vuelva a ser visible
   }
+
+
 
 
 
