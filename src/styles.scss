@@ -1,1 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+// Colores globales
+$primary-color: #0d47a1;
+$secondary-color: #1976d2;
+$light-color: #bbdefb;
+$dark-color: #0d47a1;
+$error-color: #b71c1c;
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $dark-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  color: $primary-color;
+}
+
+p {
+  color: $dark-color;
+}
+
+input, select {
+  border: 1px solid $light-color;
+  &:focus {
+    border-color: $secondary-color;
+  }
+}
+
+button {
+  background-color: $primary-color;
+  color: white;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+a {
+  color: $primary-color;
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+.table {
+  width: 100%;
+  th, td {
+    border: 1px solid $light-color;
+    padding: 8px;
+  }
+  th {
+    background-color: $primary-color;
+    color: white;
+  }
+  tr:nth-child(even) {
+    background-color: $light-color;
+  }
+}
+
+/* .table {
+  width: 100%;
+  th, td {
+    border: 1px solid var(--lightgrey);
+    padding: 18px;
+    width: 55px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    color: var(--blackgrey);
+  }
+  th {
+    background-color: $primary-color;
+    color: white;
+  }
+  tr:nth-child(even) {
+    background-color: $light-color;
+  }
+}
+ */
