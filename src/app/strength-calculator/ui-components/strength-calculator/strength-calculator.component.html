@@ -1,55 +1,31 @@
 <h2>Calculadora de Fuerza</h2>
 
-<!-- <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal> -->
 <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
 
-
-<!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos o realizar nuevo cálculo -->
+<!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos, ver historial o realizar nuevo cálculo -->
 <div *ngIf="selectedExercise && weightsStored">
-  <!-- <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button> -->
- <!--  <button *ngIf="showViewWeightsButton" (click)="showLastResultWeightTable()">Ver tabla de pesos</button> -->
- <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
-
-  <button (click)="resetCalculator()">Realizar nuevo cálculo</button>
+  <button *ngIf="!showWeightTable && !showHistorial" (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
+  <button *ngIf="showWeightTable && !showHistorial && !resultsSaved" (click)="showHistorialTable()">Ver historial</button>
+  <button *ngIf="showHistorial && !resultsSaved" (click)="showLastResultWeightTable()">Ver tabla</button>
+  <button *ngIf="!resultsSaved" (click)="resetCalculator()">Realizar nuevo cálculo</button>
 </div>
 
 <!-- Si no hay pesos guardados o no se ha seleccionado un ejercicio, muestra el formulario de cálculo -->
 <div *ngIf="!weightsStored && showCalculationForm">
   <h3>Cuanto peso utilizas</h3>
-  <label for="weight">Peso:</label>
   <input type="number" [(ngModel)]="weight">
   <h3>Cuantas repeticiones lograste</h3>
-  <label for="repetitions">Repeticiones:</label>
   <input type="number" [(ngModel)]="repetitions">
-  <button *ngIf="selectedExercise && weight && repetitions" (click)="onCalculate()">Calcular 1RM</button>
+  <button *ngIf="selectedExercise && weight && repetitions && !oneRM" (click)="onCalculate()">Calcular 1RM</button>
 </div>
 
-<!-- Muestra el modal de resultados de cálculo -->
-<!-- app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()"></app-calculation-result-modal> -->
-<app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
-<button *ngIf="showHistorial" (click)="hideHistorial()">Ver Historial</button>
+<app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
 
+<button *ngIf="oneRM && !resultsSaved" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
+<button *ngIf="resultsSaved && !showHistorial" (click)="showHistorialTable()">Ver historial</button>
+<button *ngIf="resultsSaved && showHistorial" (click)="showLastResultWeightTable()">Ver tabla</button>
+<button *ngIf="oneRM && resultsSaved" (click)="resetCalculator()">Terminar</button>
 
-
-
-<!-- <button *ngIf="oneRM" (click)="onSaveResults()">Guardar resultados</button> -->
-<button *ngIf="oneRM" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
-
-<!-- Botón para abrir el historial -->
-<!-- <button (click)="showHistorial = true">Ver Historial</button> -->
-<app-historial *ngIf="showHistorial" (closeHistorial)="hideHistorial()"></app-historial>
-
-
-<!-- Muestra el historial cuando el flag showHistorial es verdadero -->
-<!-- <app-historial *ngIf="showHistorial" (closeHistorial)="hideHistorial()"></app-historial> -->
-<!-- <button (click)="showHistorial = true">Ver historial</button>
-<button (click)="showHistorialTable()">Ver historial</button>
-<!En strength-calculator.component.html -->
 <app-historial *ngIf="showHistorial" [selectedExercise]="selectedExercise" (closeHistorial)="onCloseHistorial()"></app-historial>
-
-
-
-
-
 
 <app-strength-table *ngIf="showWeightTable" [strengthTable]="strengthTable"></app-strength-table>

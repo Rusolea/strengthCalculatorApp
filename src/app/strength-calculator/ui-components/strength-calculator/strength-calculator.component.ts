@@ -93,7 +93,7 @@ export class StrengthCalculatorComponent implements OnInit {
     this.showCalculator = false;
     this.showCalculationForm = false;
     this.showWeightTable = true; // Añade esta línea para asegurar que la tabla de pesos se muestre
-    this.showHistorialButton = true; // Muestra el boton de historial
+    /* this.showHistorialButton = true; */ // Muestra el boton de historial quitar lo relacionado
 
 
 
@@ -112,12 +112,13 @@ export class StrengthCalculatorComponent implements OnInit {
     this.resultsSaved = true;
     console.log('Guardando resultados, 1RM: ', this.oneRM);
 
-    this.showHistorial = true;
+    this.showHistorial = false; // aquí se establece el historial en false
+  this.showWeightTable = true; // aquí se establece la tabla de resultados en true
   console.log('El flag showHistorial es ahora', this.showHistorial);
-  }
+}
 
 
-  showLastResultWeightTable() {
+  /* showLastResultWeightTable() {
     const data = this.localStorageService.getStrengthData(this.selectedExercise);
     if (data && data.length > 0) {
       const lastData = data[data.length - 1];
@@ -125,7 +126,21 @@ export class StrengthCalculatorComponent implements OnInit {
         this.strengthTable = this.strengthCalculatorService.generateStrengthTable(lastData.oneRM);
         this.showWeightTable = true;
         this.showCalculationForm = false;
-        this.showViewWeightsButton = false; // Añade esta línea
+        this.showViewWeightsButton = false;
+      } else {
+        console.error("No hay datos disponibles en el almacenamiento local para el ejercicio seleccionado");
+      }
+    }
+  } */
+  showLastResultWeightTable() {
+    const data = this.localStorageService.getStrengthData(this.selectedExercise);
+    if (data && data.length > 0) {
+      const lastData = data[data.length - 1];
+      if (lastData && lastData.oneRM) {
+        this.strengthTable = this.strengthCalculatorService.generateStrengthTable(lastData.oneRM);
+        this.showWeightTable = !this.showWeightTable;
+        this.showCalculationForm = !this.showWeightTable;
+        this.showHistorial = false; // Añade esta línea
       } else {
         console.error("No hay datos disponibles en el almacenamiento local para el ejercicio seleccionado");
       }
@@ -138,37 +153,56 @@ export class StrengthCalculatorComponent implements OnInit {
     this.showCalculator = true;
     this.showCalculationForm = true;
   } */
-  resetCalculator() {
+  /* resetCalculator() {
     this.weightsStored = false;
     this.showResultModal = false;
     this.showCalculator = true;
     this.showCalculationForm = true;
     this.showWeightTable = false; // Añade esta línea para ocultar la tabla de pesos
     this.resultsSaved = false; // Agrega esta línea
-    this.oneRM = 0; // Agrega esta línea para ocultar la sección "Resultado del cálculo"
-    this.showViewWeightsButton = true; //el botón "Ver tabla de pesos" vuelva a ser visible
-  }
+    this.oneRM = 0;
+    this.showHistorial = false;// Agrega esta línea para ocultar la sección "Resultado del cálculo"
+    /* this.showViewWeightsButton = true; */ //el botón "Ver tabla de pesos" vuelva a ser visible
+    resetCalculator() {
+      this.weightsStored = false;
+      this.showResultModal = false;
+      this.showCalculator = false;
+      this.showCalculationForm = true;
+      this.showWeightTable = false; // Añade esta línea para ocultar la tabla de pesos
+      this.resultsSaved = false; // Agrega esta línea
+      this.oneRM = 0;
+      this.showHistorial = false; // Agrega esta línea para ocultar la sección "Resultado del cálculo"
+      this.weight = 0;  // Agrega esta línea
+      this.repetitions = 0;  // Agrega esta línea
+      /* this.showViewWeightsButton = true; */ //el botón "Ver tabla de pesos" vuelva a ser visible
+    }
+
+
+
 
   onTerminate() {
     // Reinicia la calculadora de fuerza
     this.selectedExercise = '';
     this.weightsStored = false;
     this.showResultModal = false;
-    this.showCalculator = true;
+    this.showCalculator = false;
     this.showCalculationForm = false;
     this.showWeightTable = false;
     this.weight = 0;
     this.repetitions = 0;
     this.oneRM = 0;
     this.resultsSaved = false; // Agrega esta línea
-    this.showViewWeightsButton = true;//el botón "Ver tabla de pesos" vuelva a ser visible
+    this.showViewWeightsButton = false;//el botón "Ver tabla de pesos" vuelva a ser visible
+    this.showHistorial = false;
   }
 
   hideHistorial() {
     this.showHistorial = false;
+
   }
   showHistorialTable() {
     this.showHistorial = true;
+    this.showWeightTable = false;
   }
 
   onCloseHistorial() {

@@ -12,6 +12,8 @@ export class CalculationResultModalComponent {
   @Output() close = new EventEmitter<void>();
   @Output() showTable = new EventEmitter<void>();
   @Output() terminate = new EventEmitter<void>();
+  @Output() showHistorial = new EventEmitter<void>();
+
 
 
   constructor(private localStorageService: LocalStorageService) { }
