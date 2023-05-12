@@ -7,7 +7,8 @@
 <!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos o realizar nuevo cálculo -->
 <div *ngIf="selectedExercise && weightsStored">
   <!-- <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button> -->
-  <button *ngIf="showViewWeightsButton" (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
+ <!--  <button *ngIf="showViewWeightsButton" (click)="showLastResultWeightTable()">Ver tabla de pesos</button> -->
+ <button (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
 
   <button (click)="resetCalculator()">Realizar nuevo cálculo</button>
 </div>
@@ -26,15 +27,29 @@
 <!-- Muestra el modal de resultados de cálculo -->
 <!-- app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()"></app-calculation-result-modal> -->
 <app-calculation-result-modal *ngIf="oneRM" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+<button *ngIf="showHistorial" (click)="hideHistorial()">Ver Historial</button>
+
+
 
 
 <!-- <button *ngIf="oneRM" (click)="onSaveResults()">Guardar resultados</button> -->
 <button *ngIf="oneRM" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
 
+<!-- Botón para abrir el historial -->
+<!-- <button (click)="showHistorial = true">Ver Historial</button> -->
+<app-historial *ngIf="showHistorial" (closeHistorial)="hideHistorial()"></app-historial>
 
-<!-- Muestra la tabla de fuerza -->
-<!-- <app-strength-table *ngIf="showResultModal" [strengthTable]="strengthTable"></app-strength-table> -->
-<!-- Muestra la tabla de fuerza -->
+
+<!-- Muestra el historial cuando el flag showHistorial es verdadero -->
+<!-- <app-historial *ngIf="showHistorial" (closeHistorial)="hideHistorial()"></app-historial> -->
+<!-- <button (click)="showHistorial = true">Ver historial</button>
+<button (click)="showHistorialTable()">Ver historial</button>
+<!En strength-calculator.component.html -->
+<app-historial *ngIf="showHistorial" [selectedExercise]="selectedExercise" (closeHistorial)="onCloseHistorial()"></app-historial>
+
+
+
+
+
+
 <app-strength-table *ngIf="showWeightTable" [strengthTable]="strengthTable"></app-strength-table>
-
-

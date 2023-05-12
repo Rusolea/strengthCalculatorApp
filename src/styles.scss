@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Colores globales
-$primary-color: #0d47a1;
+$primary-color: /* #0d47a1; */#007bff;
 $secondary-color: #1976d2;
 $light-color: #bbdefb;
 $dark-color: #0d47a1;
@@ -11,6 +11,7 @@ $error-color: #b71c1c;
 body {
   font-family: 'Roboto', sans-serif;
   color: $dark-color;
+  font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -23,6 +24,9 @@ p {
 }
 
 input, select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: $primary-color;
   border: 1px solid $light-color;
   &:focus {
     border-color: $secondary-color;
@@ -30,6 +34,10 @@ input, select {
 }
 
 button {
+  border-radius: 6px;
+  margin: 6px;
+  padding: 10px;
+  border:#007bff;
   background-color: $primary-color;
   color: white;
   &:hover {
@@ -47,7 +55,7 @@ a {
 .table {
   width: 100%;
   th, td {
-    border: 1px solid $light-color;
+    border-collapse: collapse;
     padding: 8px;
   }
   th {
@@ -55,7 +63,7 @@ a {
     color: white;
   }
   tr:nth-child(even) {
-    background-color: $light-color;
+    background-color: #f2f2f2;
   }
 }
 

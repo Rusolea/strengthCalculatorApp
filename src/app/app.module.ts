@@ -7,10 +7,10 @@ import { StrengthCalculatorModule } from './strength-calculator/strength-calcula
 
 
 
+
 @NgModule({
   declarations: [
-    AppComponent
-
+    AppComponent,
   ],
   imports: [
     BrowserModule,

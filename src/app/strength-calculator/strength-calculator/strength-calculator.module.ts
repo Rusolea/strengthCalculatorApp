@@ -9,6 +9,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 import { StrengthCalculatorService } from '../services/strength-calculator.service';
 import { FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
+import { HistorialComponent } from '../ui-components/historial/historial.component';
 
 
 
@@ -19,6 +20,7 @@ import { NgChartsModule } from 'ng2-charts';
     ProgressChartComponent,
     StrengthCalculatorComponent,
     StrengthTableComponent,
+    HistorialComponent,
 
   ],
   imports: [

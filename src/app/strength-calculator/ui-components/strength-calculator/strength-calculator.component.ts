@@ -24,6 +24,10 @@ export class StrengthCalculatorComponent implements OnInit {
   showViewWeightsButton = true; //controlar la visibilidad del botón "Ver tabla de pesos"
 
 
+  showHistorial: boolean = false;
+  showHistorialButton = false;//étodo para ocultar el historial
+
+
   constructor(
     private strengthCalculatorService: StrengthCalculatorService,
     private localStorageService: LocalStorageService
@@ -81,12 +85,19 @@ export class StrengthCalculatorComponent implements OnInit {
     this.showCalculationForm = false;
   } */
   onCalculate() {
+    console.log('Calculando 1RM...');
     this.oneRM = this.strengthCalculatorService.calculateOneRepMax(this.weight, this.repetitions);
+    console.log('1RM calculado: ', this.oneRM);
     this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
     this.showResultModal = true;
     this.showCalculator = false;
     this.showCalculationForm = false;
     this.showWeightTable = true; // Añade esta línea para asegurar que la tabla de pesos se muestre
+    this.showHistorialButton = true; // Muestra el boton de historial
+
+
+
+
   }
 
 
@@ -98,7 +109,11 @@ export class StrengthCalculatorComponent implements OnInit {
     const currentDate = new Date().toISOString().slice(0, 10);
     this.localStorageService.saveStrengthData(this.selectedExercise, this.weight, this.repetitions, this.oneRM, currentDate);
     this.weightsStored = true;
-    this.resultsSaved = true; // Agrega esta línea
+    this.resultsSaved = true;
+    console.log('Guardando resultados, 1RM: ', this.oneRM);
+
+    this.showHistorial = true;
+  console.log('El flag showHistorial es ahora', this.showHistorial);
   }
 
 
@@ -148,6 +163,19 @@ export class StrengthCalculatorComponent implements OnInit {
     this.resultsSaved = false; // Agrega esta línea
     this.showViewWeightsButton = true;//el botón "Ver tabla de pesos" vuelva a ser visible
   }
+
+  hideHistorial() {
+    this.showHistorial = false;
+  }
+  showHistorialTable() {
+    this.showHistorial = true;
+  }
+
+  onCloseHistorial() {
+    console.log('Cerrando historial...');
+    this.showHistorial = false;
+  }
+
 
 
 

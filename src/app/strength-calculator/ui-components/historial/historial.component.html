@@ -1,0 +1,17 @@
+<!-- <p>historial works!</p> -->
+<div *ngIf="historial.length === 0">No hay historial disponible.</div>
+
+<table *ngIf="historial.length > 0" class="historial-table">
+  <tr>
+    <th>Fecha</th>
+    <th>Peso</th>
+    <th>Repeticiones</th>
+    <th>1RM</th>
+  </tr>
+  <tr *ngFor="let item of historial" class="historial-row">
+    <td>{{item.date}}</td>
+    <td>{{item.weight}}</td>
+    <td>{{item.repetitions}}</td>
+    <td>{{item.oneRM}}</td>
+  </tr>
+</table>
