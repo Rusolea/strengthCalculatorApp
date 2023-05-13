@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { StrengthCalculatorService } from '../../services/strength-calculator.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+
 
 @Component({
   selector: 'app-strength-calculator',
@@ -27,8 +29,11 @@ export class StrengthCalculatorComponent implements OnInit {
   showHistorial: boolean = false;
   showHistorialButton = false;//étodo para ocultar el historial
 
+  form!: FormGroup;
+
 
   constructor(
+    private fb: FormBuilder,
     private strengthCalculatorService: StrengthCalculatorService,
     private localStorageService: LocalStorageService
   ) { }
@@ -38,6 +43,12 @@ export class StrengthCalculatorComponent implements OnInit {
     if (data) {
       this.weightsStored = true;
     }
+
+    this.form = this.fb.group({
+      weight: ['', [Validators.required, Validators.min(0), Validators.max(300)]],
+      repetitions: ['', [Validators.required, Validators.min(1), Validators.max(50)]]
+    });
+
   }
 
  /*  onExerciseChange(exercise: string) {
@@ -85,20 +96,33 @@ export class StrengthCalculatorComponent implements OnInit {
     this.showCalculationForm = false;
   } */
   onCalculate() {
-    console.log('Calculando 1RM...');
-    this.oneRM = this.strengthCalculatorService.calculateOneRepMax(this.weight, this.repetitions);
-    console.log('1RM calculado: ', this.oneRM);
-    this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
-    this.showResultModal = true;
-    this.showCalculator = false;
-    this.showCalculationForm = false;
-    this.showWeightTable = true; // Añade esta línea para asegurar que la tabla de pesos se muestre
-    /* this.showHistorialButton = true; */ // Muestra el boton de historial quitar lo relacionado
+    // Obtenemos los controles del formulario para 'weight' y 'repetitions'
+    const weightControl = this.form.get('weight');
+    const repetitionsControl = this.form.get('repetitions');
 
+    // Comprobamos si el valor del control 'weight' existe y si es un número
+    if (weightControl?.value && typeof weightControl.value === 'number') {
+      // Si es así, asignamos este valor a la propiedad 'weight' del componente
+      this.weight = weightControl.value;
+    }
 
+    // Hacemos lo mismo para el control 'repetitions'
+    if (repetitionsControl?.value && typeof repetitionsControl.value === 'number') {
+      this.repetitions = repetitionsControl.value;
+    }
 
-
+    if (this.form.valid) {
+      console.log('Calculando 1RM...');
+      this.oneRM = this.strengthCalculatorService.calculateOneRepMax(this.weight, this.repetitions);
+      console.log('1RM calculado: ', this.oneRM);
+      this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
+      this.showResultModal = true;
+      this.showCalculator = false;
+      this.showCalculationForm = false;
+      this.showWeightTable = true;
+    }
   }
+
 
 
   /* onSaveResults() {
@@ -209,6 +233,24 @@ export class StrengthCalculatorComponent implements OnInit {
     console.log('Cerrando historial...');
     this.showHistorial = false;
   }
+
+  get weightErrors() {
+    const control = this.form.get('weight');
+    if (control && control.touched && control.errors) {
+      return control.errors;
+    }
+    return null;
+  }
+
+  get repetitionErrors() {
+    const control = this.form.get('repetitions');
+    if (control && control.touched && control.errors) {
+      return control.errors;
+    }
+    return null;
+  }
+
+
 
 
 

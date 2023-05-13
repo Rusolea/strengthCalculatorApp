@@ -12,11 +12,29 @@
 
 <!-- Si no hay pesos guardados o no se ha seleccionado un ejercicio, muestra el formulario de cálculo -->
 <div *ngIf="!weightsStored && showCalculationForm">
-  <h3>Cuanto peso utilizas</h3>
-  <input type="number" [(ngModel)]="weight">
-  <h3>Cuantas repeticiones lograste</h3>
-  <input type="number" [(ngModel)]="repetitions">
-  <button *ngIf="selectedExercise && weight && repetitions && !oneRM" (click)="onCalculate()">Calcular 1RM</button>
+  <form [formGroup]="form" (ngSubmit)="onCalculate()">
+    <input formControlName="weight" type="number" placeholder="Peso" />
+    <div *ngIf="form.get('weight')?.touched">
+      <div *ngIf="form.get('weight')?.errors?.['required']">El peso es requerido.</div>
+      <div *ngIf="form.get('weight')?.errors?.['min']">El peso debe ser al menos 0.</div>
+      <div *ngIf="form.get('weight')?.errors?.['max']">El peso no puede ser más de 300.</div>
+    </div>
+
+    <input formControlName="repetitions" type="number" placeholder="Repeticiones" />
+    <div *ngIf="form.get('repetitions')?.touched">
+      <div *ngIf="form.get('repetitions')?.errors?.['required']">Las repeticiones son requeridas.</div>
+      <div *ngIf="form.get('repetitions')?.errors?.['min']">Las repeticiones deben ser al menos 1.</div>
+      <div *ngIf="form.get('repetitions')?.errors?.['max']">Las repeticiones no pueden ser más de 50.</div>
+    </div>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+
+
+
+
+
 </div>
 
 <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>

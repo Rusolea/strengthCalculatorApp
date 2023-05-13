@@ -7,7 +7,7 @@ import { StrengthCalculatorComponent } from '../ui-components/strength-calculato
 import { StrengthTableComponent } from '../ui-components/strength-table/strength-table.component';
 import { LocalStorageService } from '../services/local-storage.service';
 import { StrengthCalculatorService } from '../services/strength-calculator.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { HistorialComponent } from '../ui-components/historial/historial.component';
 
@@ -27,6 +27,7 @@ import { HistorialComponent } from '../ui-components/historial/historial.compone
     CommonModule,
     FormsModule,
     NgChartsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     LocalStorageService,
