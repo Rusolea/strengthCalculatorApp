@@ -9,6 +9,8 @@ import { Chart } from 'chart.js/auto';
 })
 export class CalculationResultModalComponent {
   @Input() oneRm: number = 0;
+  @Input() resultMessage: string = "";
+
   @Output() close = new EventEmitter<void>();
   @Output() showTable = new EventEmitter<void>();
   @Output() terminate = new EventEmitter<void>();

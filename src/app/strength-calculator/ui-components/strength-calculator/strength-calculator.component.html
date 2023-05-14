@@ -37,7 +37,9 @@
 
 </div>
 
-<app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+<!-- <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+ -->
+ <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" [resultMessage]="resultMessage" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
 
 <button *ngIf="oneRM && !resultsSaved" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
 <button *ngIf="resultsSaved && !showHistorial" (click)="showHistorialTable()">Ver historial</button>

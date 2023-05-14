@@ -1,8 +1,11 @@
-<h3>Resultado del cálculo</h3>
-<p>1RM: {{ oneRm }} kg</p>
-<!-- <button (click)="onClose()">Volver</button> eliminar las relaciones de este componente-->
-<!-- <button (click)="showHistorial.emit()">Historial</button> elimiar las relaciones con este componente  -->
-<!-- <button (click)="loadData()">Tabla</button> -->
-<button (click)="onTerminate()">Terminar</button>
+
+
+<div class="modal">
+  <h2>Resultado del test</h2>
+  <h3>{{ resultMessage }}</h3>
+  <p>1RM: {{ oneRm }} kg</p>
+  <button (click)="onTerminate()">Terminar</button>
+</div>
+
 
 

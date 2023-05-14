@@ -18,24 +18,22 @@ export class StrengthCalculatorComponent implements OnInit {
   showResultModal = false;
   showCalculator = true;
   showCalculationForm = true;
-
   weightsStored = false;
   showWeightTable = false;
-
   resultsSaved = false; //Para evitar que el botón "Guardar resultados" se presione varias veces y se guarden los datos repetidamente,
   showViewWeightsButton = true; //controlar la visibilidad del botón "Ver tabla de pesos"
-
-
   showHistorial: boolean = false;
   showHistorialButton = false;//étodo para ocultar el historial
-
   form!: FormGroup;
+  resultMessage: string = ''; // Added this line to define resultMessage
+
 
 
   constructor(
     private fb: FormBuilder,
     private strengthCalculatorService: StrengthCalculatorService,
     private localStorageService: LocalStorageService
+
   ) { }
 
   ngOnInit(): void {
@@ -51,18 +49,7 @@ export class StrengthCalculatorComponent implements OnInit {
 
   }
 
- /*  onExerciseChange(exercise: string) {
-    this.selectedExercise = exercise;
-  } */
- /*  onExerciseChange(exercise: string) {
-    this.selectedExercise = exercise;
-    const data = this.localStorageService.getStrengthData(this.selectedExercise);
-    if (data) {
-      this.weightsStored = true;
-    } else {
-      this.weightsStored = false;
-    }
-  } */
+
   onExerciseChange(selectedExercise: string) {
     this.selectedExercise = selectedExercise;
     const data = this.localStorageService.getStrengthData(this.selectedExercise);
@@ -88,47 +75,47 @@ export class StrengthCalculatorComponent implements OnInit {
   }
 
 
-  /* onCalculate() {
-    this.oneRM = this.strengthCalculatorService.calculateOneRepMax(this.weight, this.repetitions);
-    this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
-    this.showResultModal = true;
-    this.showCalculator = false;
-    this.showCalculationForm = false;
-  } */
   onCalculate() {
-    // Obtenemos los controles del formulario para 'weight' y 'repetitions'
-    const weightControl = this.form.get('weight');
-    const repetitionsControl = this.form.get('repetitions');
-
-    // Comprobamos si el valor del control 'weight' existe y si es un número
-    if (weightControl?.value && typeof weightControl.value === 'number') {
-      // Si es así, asignamos este valor a la propiedad 'weight' del componente
-      this.weight = weightControl.value;
-    }
-
-    // Hacemos lo mismo para el control 'repetitions'
-    if (repetitionsControl?.value && typeof repetitionsControl.value === 'number') {
-      this.repetitions = repetitionsControl.value;
-    }
-
     if (this.form.valid) {
+      this.weight = this.form.get('weight')?.value; // Get the weight value from the form
+      this.repetitions = this.form.get('repetitions')?.value; // Get the repetitions value from the form
+
+      console.log('Weight: ', this.weight);
+      console.log('Repetitions: ', this.repetitions);
       console.log('Calculando 1RM...');
       this.oneRM = this.strengthCalculatorService.calculateOneRepMax(this.weight, this.repetitions);
       console.log('1RM calculado: ', this.oneRM);
+
+      // Get the last test result
+      const lastResultData = this.strengthCalculatorService.getLastTestResult(this.selectedExercise);// Call the method on 'this.strengthCalculatorService'
+       console.log('lastResultData:', lastResultData);
+      const lastResult: number | null = lastResultData ? lastResultData.oneRM : null;
+
+      // Determine the result message
+      if (lastResult !== null) {
+        if (this.oneRM > lastResult) {
+          this.resultMessage = '¡Felicitaciones! Mejoraste tu test.';
+        } else if (this.oneRM < lastResult) {
+          this.resultMessage = 'Parece que tu test es inferior al anterior, ¡sigue esforzándote!';
+        } else {
+          this.resultMessage = 'Tu test es igual al anterior, ¡sigue intentándolo!';
+        }
+      } else {
+        // Handle case where there is no previous result (lastResult is null)
+        this.resultMessage = 'Este es tu primer test!';
+      }
+
       this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
       this.showResultModal = true;
       this.showCalculator = false;
       this.showCalculationForm = false;
       this.showWeightTable = true;
+      this.resultsSaved = false;
     }
   }
 
 
 
-  /* onSaveResults() {
-    const currentDate = new Date().toISOString().slice(0, 10);
-    this.localStorageService.saveStrengthData(this.selectedExercise, this.weight, this.repetitions, this.oneRM, currentDate);
-  } */
   onSaveResults() {
     const currentDate = new Date().toISOString().slice(0, 10);
     this.localStorageService.saveStrengthData(this.selectedExercise, this.weight, this.repetitions, this.oneRM, currentDate);
@@ -141,21 +128,6 @@ export class StrengthCalculatorComponent implements OnInit {
   console.log('El flag showHistorial es ahora', this.showHistorial);
 }
 
-
-  /* showLastResultWeightTable() {
-    const data = this.localStorageService.getStrengthData(this.selectedExercise);
-    if (data && data.length > 0) {
-      const lastData = data[data.length - 1];
-      if (lastData && lastData.oneRM) {
-        this.strengthTable = this.strengthCalculatorService.generateStrengthTable(lastData.oneRM);
-        this.showWeightTable = true;
-        this.showCalculationForm = false;
-        this.showViewWeightsButton = false;
-      } else {
-        console.error("No hay datos disponibles en el almacenamiento local para el ejercicio seleccionado");
-      }
-    }
-  } */
   showLastResultWeightTable() {
     const data = this.localStorageService.getStrengthData(this.selectedExercise);
     if (data && data.length > 0) {
@@ -171,22 +143,7 @@ export class StrengthCalculatorComponent implements OnInit {
     }
   }
 
-  /* resetCalculator() {
-    this.weightsStored = false;
-    this.showResultModal = false;
-    this.showCalculator = true;
-    this.showCalculationForm = true;
-  } */
-  /* resetCalculator() {
-    this.weightsStored = false;
-    this.showResultModal = false;
-    this.showCalculator = true;
-    this.showCalculationForm = true;
-    this.showWeightTable = false; // Añade esta línea para ocultar la tabla de pesos
-    this.resultsSaved = false; // Agrega esta línea
-    this.oneRM = 0;
-    this.showHistorial = false;// Agrega esta línea para ocultar la sección "Resultado del cálculo"
-    /* this.showViewWeightsButton = true; */ //el botón "Ver tabla de pesos" vuelva a ser visible
+
     resetCalculator() {
       this.weightsStored = false;
       this.showResultModal = false;
