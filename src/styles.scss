@@ -96,11 +96,11 @@ input, select {
   }
 }
 
-.calculate_button{
+/* .calculate_button{
   margin-top: 30px;
   width: 100%;
 }
-
+ */
 .full-width-button {
   width: 70%;
   margin: 0; /* Asegurémonos de que no hay margen que impida que el botón ocupe todo el ancho */
@@ -118,10 +118,12 @@ input, select {
  */
  .button-group {
   display: flex;
-  flex-direction: column; // Cambiamos a column para que los botones se apilen verticalmente
-  // align-items: center; // Centramos los botones
+  flex-direction: column;
   width: 100%;
+  justify-content: center;  // Centra los elementos hijos en el eje principal (vertical en este caso)
+  align-items: center;  // Centra los elementos hijos en el eje transversal (horizontal en este caso)
 }
+
 
 
 button {
@@ -131,7 +133,7 @@ button {
   border: none;
   background-color: $primary-color;
   color: white;
-  width: 100%;
+  width: 90vw;
   box-sizing: border-box;
 
   &:hover {
@@ -151,7 +153,7 @@ button {
 
 
 .full-width-button, button {
-  width: 100%;
+  width: 90vw;
   border-radius: 6px;
   margin: 10px 0;
   padding: 0.625rem;
@@ -183,7 +185,9 @@ a {
 }
 
 .table {
-  width: 100%;
+  width: 90vw; // 90% del ancho del viewport
+  margin: 0 auto; // centrar la tabla
+  /* resto de tus estilos... */
 
   th, td {
     border-collapse: collapse;
@@ -200,8 +204,9 @@ a {
   }
 };
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .container, .form-container {
     width: 100%;
   };
 };
+ */

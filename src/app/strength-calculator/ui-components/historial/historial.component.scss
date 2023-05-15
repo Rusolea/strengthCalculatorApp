@@ -8,7 +8,9 @@ $dark-color: #0d47a1;
 $error-color: #b71c1c;
 
 .historial-table {
-  width: 100%;
+  /* width: 100%; */
+  width: 90vw; // 90% del ancho del viewport
+  margin: 0 auto; // centrar la tabla
   border-collapse: collapse;
   th, td {
     padding: 8px;

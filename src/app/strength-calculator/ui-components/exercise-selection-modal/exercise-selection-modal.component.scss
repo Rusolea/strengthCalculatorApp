@@ -2,6 +2,11 @@
   width: 100%;
 };
 
+:host {
+  display: block; // Asegúrate de que el componente se comporte como un elemento de bloque
+  width: 100%; // Ocupa el 100% del ancho disponible
+}
+
 .selection-container {
   display: flex;
   flex-direction: column;

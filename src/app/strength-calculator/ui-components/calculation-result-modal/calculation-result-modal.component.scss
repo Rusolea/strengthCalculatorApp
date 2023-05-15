@@ -5,12 +5,17 @@ $dark-color: #0d47a1;
 $error-color: #b71c1c;
 $disableButton-color: #f2f2f2;
 
+:host {
+  display: block; // Asegúrate de que el componente se comporte como un elemento de bloque
+  width: 100%; // Ocupa el 100% del ancho disponible
+}
 .modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  width: 100%;
 
   h2, h3, p {
     width: 100%; /* Ocupa todo el ancho del contenedor padre */
@@ -18,6 +23,7 @@ $disableButton-color: #f2f2f2;
 
   button {
     /* Aquí puedes agregar los estilos para tu botón, por ejemplo: */
+    width: 100%; /* Asegura que el botón ocupe todo el ancho del contenedor */
     margin-top: 1rem; /* Añade un margen en la parte superior para separarlo del contenido anterior */
     padding: 0.5rem 1rem;
     border: none;
