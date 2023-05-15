@@ -91,8 +91,30 @@ export class StrengthCalculatorComponent implements OnInit {
        console.log('lastResultData:', lastResultData);
       const lastResult: number | null = lastResultData ? lastResultData.oneRM : null;
 
+      // Calculate the improvement
+    let improvement: number | null = null;
+    if (lastResult !== null) {
+      improvement = this.oneRM - lastResult;
+    }
+
+    // Determine the result message
+    if (lastResult !== null) {
+      if (improvement! > 0) {
+        this.resultMessage = `¡Felicitaciones! Has mejorado tu fuerza en ${improvement} kilos.`;
+      } else if (improvement! < 0) {
+        this.resultMessage = `Parece que tu test es inferior al anterior por ${-improvement!} kilos, ¡sigue esforzándote!`;
+      } else {
+        this.resultMessage = 'Tu test es igual al anterior, ¡sigue intentándolo!';
+      }
+    } else {
+      // Handle case where there is no previous result (lastResult is null)
+      this.resultMessage = 'Este es tu primer test!';
+    }
+
+
+
       // Determine the result message
-      if (lastResult !== null) {
+      /* if (lastResult !== null) {
         if (this.oneRM > lastResult) {
           this.resultMessage = '¡Felicitaciones! Mejoraste tu test.';
         } else if (this.oneRM < lastResult) {
@@ -100,10 +122,10 @@ export class StrengthCalculatorComponent implements OnInit {
         } else {
           this.resultMessage = 'Tu test es igual al anterior, ¡sigue intentándolo!';
         }
-      } else {
+      } else { */
         // Handle case where there is no previous result (lastResult is null)
-        this.resultMessage = 'Este es tu primer test!';
-      }
+      /*   this.resultMessage = 'Este es tu primer test!';
+      } */
 
       this.strengthTable = this.strengthCalculatorService.generateStrengthTable(this.oneRM);
       this.showResultModal = true;
