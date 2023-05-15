@@ -1,5 +1,6 @@
-<h3>Seleccionar Ejercicio</h3>
-<select [(ngModel)]="selectedExercise" (change)="onExerciseChange(selectedExercise)">
-  <option *ngFor="let exercise of exercises" [value]="exercise.id">{{ exercise.name }}</option>
-</select>
-
+<div class="selection-container">
+  <h3>Seleccionar Ejercicio</h3>
+  <select [(ngModel)]="selectedExercise" (change)="onExerciseChange(selectedExercise)">
+    <option *ngFor="let exercise of exercises" [value]="exercise.id">{{ exercise.name }}</option>
+  </select>
+</div>

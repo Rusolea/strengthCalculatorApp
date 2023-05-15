@@ -1,17 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 // Colores globales
-$primary-color: /* #0d47a1; */#007bff;
+$primary-color: #007bff;
 $secondary-color: #1976d2;
 $light-color: #bbdefb;
 $dark-color: #0d47a1;
 $error-color: #b71c1c;
+$disableButton-color: #f2f2f2;
 
 body {
   font-family: 'Roboto', sans-serif;
   color: $dark-color;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -23,30 +23,132 @@ p {
   color: $dark-color;
 }
 
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+}
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+.error-message {
+  /* height: 20px;  *//* Ajusta a la altura de tu mensaje de error */
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $error-color;
+}
+
+
+
+
 input, select {
   padding: 0.8rem;
   font-size: 1rem;
   color: $primary-color;
-  border: 1px solid $light-color;
+  border: none;
+  border-bottom: 1px solid $light-color;
+  /* width: 70%;  */
+  display: block;
+  margin: 1.5rem 0; /* Removemos el margen horizontal */
+  text-align: center;
+
   &:focus {
-    border-color: $secondary-color;
+    border-bottom-color: $secondary-color;
   }
 }
 
+.calculate_button{
+  margin-top: 30px;
+  width: 100%;
+}
+
+.full-width-button {
+  width: 70%;
+  margin: 0; /* Asegurémonos de que no hay margen que impida que el botón ocupe todo el ancho */
+  /* tus otros estilos... */
+}
+
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
 button {
   border-radius: 6px;
-  margin: 6px;
-  padding: 10px;
-  border:#007bff;
+  margin: 10px;
+  padding: 0.625rem;
+  border: none;
   background-color: $primary-color;
   color: white;
+
   &:hover {
     background-color: darken($primary-color, 10%);
   }
+
+  &:active {
+    background-color: darken($primary-color, 20%);
+  }
+
+  &:disabled {
+    color: $primary-color; ;
+    background-color: $disableButton-color;
+    cursor: not-allowed;
+  }
+}
+
+.full-width-button {
+  width: 100%;
+  /* tus otros estilos... */
 }
 
 a {
   color: $primary-color;
+
   &:hover {
     color: darken($primary-color, 10%);
   }
@@ -54,37 +156,24 @@ a {
 
 .table {
   width: 100%;
+
   th, td {
     border-collapse: collapse;
-    padding: 8px;
+    padding: 0.5rem;
   }
+
   th {
     background-color: $primary-color;
     color: white;
   }
+
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
-}
+};
 
-/* .table {
-  width: 100%;
-  th, td {
-    border: 1px solid var(--lightgrey);
-    padding: 18px;
-    width: 55px;
-    height: 40px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: center;
-    color: var(--blackgrey);
-  }
-  th {
-    background-color: $primary-color;
-    color: white;
-  }
-  tr:nth-child(even) {
-    background-color: $light-color;
-  }
-}
- */
+@media (max-width: 600px) {
+  .container, .form-container {
+    width: 100%;
+  };
+};

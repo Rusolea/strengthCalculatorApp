@@ -1,51 +1,65 @@
-<h2>Calculadora de Fuerza</h2>
+<div class="container">
+  <h2 class="page-title">Calculadora de Fuerza</h2>
 
-<app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
+  <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
 
-<!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos, ver historial o realizar nuevo cálculo -->
-<div *ngIf="selectedExercise && weightsStored">
-  <button *ngIf="!showWeightTable && !showHistorial" (click)="showLastResultWeightTable()">Ver tabla de pesos</button>
-  <button *ngIf="showWeightTable && !showHistorial && !resultsSaved" (click)="showHistorialTable()">Ver historial</button>
-  <button *ngIf="showHistorial && !resultsSaved" (click)="showLastResultWeightTable()">Ver tabla</button>
-  <button *ngIf="!resultsSaved" (click)="resetCalculator()">Realizar nuevo cálculo</button>
-</div>
-
-<!-- Si no hay pesos guardados o no se ha seleccionado un ejercicio, muestra el formulario de cálculo -->
-<div *ngIf="!weightsStored && showCalculationForm">
-  <form [formGroup]="form" (ngSubmit)="onCalculate()">
-    <input formControlName="weight" type="number" placeholder="Peso" />
-    <div *ngIf="form.get('weight')?.touched">
-      <div *ngIf="form.get('weight')?.errors?.['required']">El peso es requerido.</div>
-      <div *ngIf="form.get('weight')?.errors?.['min']">El peso debe ser al menos 0.</div>
-      <div *ngIf="form.get('weight')?.errors?.['max']">El peso no puede ser más de 300.</div>
+  <!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos, ver historial o realizar nuevo cálculo -->
+  <div class="button-group" *ngIf="selectedExercise && weightsStored">
+    <div *ngIf="selectedExercise && weightsStored">
+      <button *ngIf="!showWeightTable && !showHistorial" (click)="showLastResultWeightTable()">Ver tabla de
+        pesos</button>
+      <button *ngIf="showWeightTable && !showHistorial && !resultsSaved" (click)="showHistorialTable()">Ver
+        historial</button>
+      <button *ngIf="showHistorial && !resultsSaved" (click)="showLastResultWeightTable()">Ver tabla</button>
+      <button *ngIf="!resultsSaved" (click)="resetCalculator()">Realizar nuevo cálculo</button>
     </div>
+  </div>
 
-    <input formControlName="repetitions" type="number" placeholder="Repeticiones" />
-    <div *ngIf="form.get('repetitions')?.touched">
-      <div *ngIf="form.get('repetitions')?.errors?.['required']">Las repeticiones son requeridas.</div>
-      <div *ngIf="form.get('repetitions')?.errors?.['min']">Las repeticiones deben ser al menos 1.</div>
-      <div *ngIf="form.get('repetitions')?.errors?.['max']">Las repeticiones no pueden ser más de 50.</div>
-    </div>
+  <!-- Si no hay pesos guardados o no se ha seleccionado un ejercicio, muestra el formulario de cálculo -->
+  <div class="form-container" *ngIf="!weightsStored && showCalculationForm">
+    <form [formGroup]="form" (ngSubmit)="onCalculate()">
+      <div class="input-field">
+        <input formControlName="weight" type="number" placeholder="Peso" />
+        <div class="error-message">
+          <div *ngIf="form.get('weight')?.touched">
+            <div *ngIf="form.get('weight')?.errors?.['required']">El peso es requerido.</div>
+            <div *ngIf="form.get('weight')?.errors?.['min']">El peso debe ser al menos 0.</div>
+            <div *ngIf="form.get('weight')?.errors?.['max']">El peso no puede ser más de 300.</div>
+          </div>
+        </div>
+      </div>
+      <div class="input-field">
+        <input formControlName="repetitions" type="number" placeholder="Repeticiones" />
+        <div class="error-message">
+          <div *ngIf="form.get('repetitions')?.touched">
+            <div *ngIf="form.get('repetitions')?.errors?.['required']">Las repeticiones son requeridas.</div>
+            <div *ngIf="form.get('repetitions')?.errors?.['min']">Las repeticiones deben ser al menos 1.</div>
+            <div *ngIf="form.get('repetitions')?.errors?.['max']">Las repeticiones no pueden ser más de 50.</div>
+          </div>
+        </div>
+      </div>
+      <div class="calculate_button" >
+        <button type="submit" class="full-width-button" [disabled]="!form.valid">Calcular</button>
+      </div>
 
-    <button type="submit">Calcular</button>
-  </form>
 
 
+    </form>
+  </div>
 
 
-
-
-</div>
-
-<!-- <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+  <!-- <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
  -->
- <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" [resultMessage]="resultMessage" (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
+  <app-calculation-result-modal *ngIf="oneRM && !resultsSaved" [oneRm]="oneRM" [resultMessage]="resultMessage"
+    (close)="onModalClose()" (terminate)="onTerminate()"></app-calculation-result-modal>
 
-<button *ngIf="oneRM && !resultsSaved" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
-<button *ngIf="resultsSaved && !showHistorial" (click)="showHistorialTable()">Ver historial</button>
-<button *ngIf="resultsSaved && showHistorial" (click)="showLastResultWeightTable()">Ver tabla</button>
-<button *ngIf="oneRM && resultsSaved" (click)="resetCalculator()">Terminar</button>
+  <button *ngIf="oneRM && !resultsSaved" (click)="onSaveResults()" [disabled]="resultsSaved">Guardar resultados</button>
+  <button *ngIf="resultsSaved && !showHistorial" (click)="showHistorialTable()">Ver historial</button>
+  <button *ngIf="resultsSaved && showHistorial" (click)="showLastResultWeightTable()">Ver tabla</button>
+  <button *ngIf="oneRM && resultsSaved" (click)="resetCalculator()">Terminar</button>
 
-<app-historial *ngIf="showHistorial" [selectedExercise]="selectedExercise" (closeHistorial)="onCloseHistorial()"></app-historial>
+  <app-historial *ngIf="showHistorial" [selectedExercise]="selectedExercise"
+    (closeHistorial)="onCloseHistorial()"></app-historial>
 
-<app-strength-table *ngIf="showWeightTable" [strengthTable]="strengthTable"></app-strength-table>
+  <app-strength-table *ngIf="showWeightTable" [strengthTable]="strengthTable"></app-strength-table>
+</div>

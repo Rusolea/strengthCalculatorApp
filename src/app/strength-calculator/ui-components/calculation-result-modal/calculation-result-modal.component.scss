@@ -1,0 +1,37 @@
+$primary-color: #007bff;
+$secondary-color: #1976d2;
+$light-color: #bbdefb;
+$dark-color: #0d47a1;
+$error-color: #b71c1c;
+$disableButton-color: #f2f2f2;
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h2, h3, p {
+    width: 100%; /* Ocupa todo el ancho del contenedor padre */
+  }
+
+  button {
+    /* Aquí puedes agregar los estilos para tu botón, por ejemplo: */
+    margin-top: 1rem; /* Añade un margen en la parte superior para separarlo del contenido anterior */
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: $primary-color;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &:active {
+      background-color: darken($primary-color, 20%);
+    }
+  }
+}
