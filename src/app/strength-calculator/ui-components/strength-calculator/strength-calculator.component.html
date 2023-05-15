@@ -1,17 +1,19 @@
 <div class="container">
   <h2 class="page-title">Calculadora de Fuerza</h2>
 
-  <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
+  <div class="exercise-selection-modal__container">
+      <app-exercise-selection-modal (exerciseChange)="onExerciseChange($event)"></app-exercise-selection-modal>
+  </div>
 
   <!-- Si hay pesos guardados, muestra las opciones de ver tabla de pesos, ver historial o realizar nuevo cálculo -->
   <div class="button-group" *ngIf="selectedExercise && weightsStored">
     <div *ngIf="selectedExercise && weightsStored">
-      <button *ngIf="!showWeightTable && !showHistorial" (click)="showLastResultWeightTable()">Ver tabla de
+      <button class="full-width-button" *ngIf="!showWeightTable && !showHistorial" (click)="showLastResultWeightTable()">Ver tabla de
         pesos</button>
-      <button *ngIf="showWeightTable && !showHistorial && !resultsSaved" (click)="showHistorialTable()">Ver
+      <button class="full-width-button" *ngIf="showWeightTable && !showHistorial && !resultsSaved" (click)="showHistorialTable()">Ver
         historial</button>
-      <button *ngIf="showHistorial && !resultsSaved" (click)="showLastResultWeightTable()">Ver tabla</button>
-      <button *ngIf="!resultsSaved" (click)="resetCalculator()">Realizar nuevo cálculo</button>
+      <button class="full-width-button" *ngIf="showHistorial && !resultsSaved" (click)="showLastResultWeightTable()">Ver tabla</button>
+      <button class="full-width-button" *ngIf="!resultsSaved" (click)="resetCalculator()">Realizar nuevo cálculo</button>
     </div>
   </div>
 

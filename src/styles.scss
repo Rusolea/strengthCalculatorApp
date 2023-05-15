@@ -86,7 +86,7 @@ input, select {
   color: $primary-color;
   border: none;
   border-bottom: 1px solid $light-color;
-  /* width: 70%;  */
+  /* width: 100%; */
   display: block;
   margin: 1.5rem 0; /* Removemos el margen horizontal */
   text-align: center;
@@ -108,19 +108,52 @@ input, select {
 }
 
 
-.button-group {
+/* .button-group {
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-
+ */
+ .button-group {
+  display: flex;
+  flex-direction: column; // Cambiamos a column para que los botones se apilen verticalmente
+  // align-items: center; // Centramos los botones
+  width: 100%;
+}
 
 
 button {
   border-radius: 6px;
-  margin: 10px;
+  margin: 10px 0; // Cambiamos el margen para que sea solo vertical
+  padding: 0.625rem;
+  border: none;
+  background-color: $primary-color;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &:active {
+    background-color: darken($primary-color, 20%);
+  }
+
+  &:disabled {
+    color: $primary-color;
+    background-color: $disableButton-color;
+    cursor: not-allowed;
+  }
+}
+
+
+.full-width-button, button {
+  width: 100%;
+  border-radius: 6px;
+  margin: 10px 0;
   padding: 0.625rem;
   border: none;
   background-color: $primary-color;
@@ -135,15 +168,10 @@ button {
   }
 
   &:disabled {
-    color: $primary-color; ;
+    color: $primary-color;
     background-color: $disableButton-color;
     cursor: not-allowed;
   }
-}
-
-.full-width-button {
-  width: 100%;
-  /* tus otros estilos... */
 }
 
 a {
